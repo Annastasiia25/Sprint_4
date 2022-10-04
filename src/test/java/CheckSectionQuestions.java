@@ -1,11 +1,17 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.example.Question.Questions;
 import org.example.Question.SectionQuestions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 
@@ -18,16 +24,21 @@ public class CheckSectionQuestions {
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        driver.get("https://qa-scooter.praktikum-services.ru/");
+        WebElement element = driver.findElement(By.id("accordion__heading-0"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.elementToBeClickable(element));
+        // перенесла в бефор первые шаги, так как у меня выходила ошибка и не удавалось внести все это по тестам
+        // плюс, как оказалось если проскролить до 1 вопроса, дальше поиск идет спокойно.
     }
 
     @Test
     public void expectedFirstImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.FIRST_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.FIRST_ANSWER);
-        String expected = sectionQuestions.FIRST_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getHowMuchDoesItCostAnswer();
+        String expected = questions.FIRST_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
 
     }
@@ -35,11 +46,9 @@ public class CheckSectionQuestions {
     @Test
     public void expectedSecondImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.SECOND_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.SECOND_ANSWER);
-        String expected = sectionQuestions.SECOND_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getWantSeveralScootersAtOnceAnswer();
+        String expected = questions.SECOND_EXPECTATION;
         Assert.assertEquals("Text is not equal.",expected,actual);
 
     }
@@ -47,11 +56,9 @@ public class CheckSectionQuestions {
     @Test
     public void expectedThirdImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.THIRD_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.THIRD_ANSWER);
-        String expected = sectionQuestions.THIRD_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getHowRentalTimeCalculatedAnswer();
+        String expected = questions.THIRD_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
 
     }
@@ -59,11 +66,9 @@ public class CheckSectionQuestions {
     @Test
     public void expectedFourthImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.FOURTH_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.FOURTH_ANSWER);
-        String expected = sectionQuestions.FOURTH_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getPossibleToOrderScooterToday();
+        String expected = questions.FOURTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
 
     }
@@ -71,44 +76,36 @@ public class CheckSectionQuestions {
     @Test
     public void expectedFifthImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.FIFTH_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.FIFTH_ANSWER);
-        String expected = sectionQuestions.FIFTH_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getPossibleToExtendOrderOrReturnEarlier();
+        String expected = questions.FIFTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
 
     }
     @Test
     public void expectedSixthImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.SIXTH_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.SIXTH_ANSWER);
-        String expected = sectionQuestions.SIXTH_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getChargingAlongWithScooter();
+        String expected = questions.SIXTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
 
     }
     @Test
     public void expectedSeventhImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.SEVENTH_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.SEVENTH_ANSWER);
-        String expected =sectionQuestions.SEVENTH_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getPossibleToCancelOrder();
+        String expected =questions.SEVENTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
 
     }
     @Test
     public void expectedEightImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
-        sectionQuestions.Open();
-        sectionQuestions.scrollToSectionQuestions();
-        sectionQuestions.expandQuestion(SectionQuestions.EIGHTH_QUESTION);
-        String actual = sectionQuestions.showAnswer(SectionQuestions.EIGHTH_ANSWER);
-        String expected = sectionQuestions.EIGHTH_EXPECTATION;
+        Questions questions = new Questions(driver);
+        String actual = sectionQuestions.getBringScooterBeyondMKAD();
+        String expected = questions.EIGHTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
     }
 

@@ -26,6 +26,9 @@ public class TestMakingTheOrder {
                 "Анастасия",  "Метелкина",  "Москва",  "Лубянка",
                 "+79993332211",  "01.01.2001", "сутки",  "чёрный жемчуг",
                 "Тест");
+        String expected = "Заказ оформлен";
+        String actual = orderInformationPage.getNotificationOfOrderCreation();
+        Assert.assertThat("The order creation notification has not appeared or the order has not been created", actual, startsWith(expected));
     }
     @Test
     public void TestWithLowerOrderButton() {
@@ -37,13 +40,12 @@ public class TestMakingTheOrder {
                 "Елена",  "Преснакова",  "Ленинград", "Тверская",
                 "+79991112233", "12.12.2022", "двое суток",  "серая безысходность",
                 "Второй тест");
-    }
-    @After
-    public void teardown(){
-        OrderInformationPage orderInformationPage = new OrderInformationPage(driver);
         String expected = "Заказ оформлен";
         String actual = orderInformationPage.getNotificationOfOrderCreation();
         Assert.assertThat("The order creation notification has not appeared or the order has not been created", actual, startsWith(expected));
+    }
+    @After
+    public void teardown(){
         driver.quit();
     }
 }
