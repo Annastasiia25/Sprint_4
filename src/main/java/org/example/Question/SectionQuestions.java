@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SectionQuestions {
 
@@ -18,39 +20,47 @@ public class SectionQuestions {
  private final static String URL = "https://qa-scooter.praktikum-services.ru/";
 
  //Локатор секции
- private By sectionQuestions = By.xpath("//*[@id=\"root\"]/div/div[1]/div[5]/div[1]");
+ private By sectionQuestions = By.linkText("Вопросы о важном"); // изменила поиск по xpath на текст, так как он уникальный на страницу
 
  // локаторы по вопросам
+ // заменила все локаторы для поиска ответа с By.xpath на By.id
+
  //Сколько это стоит? И как оплатить?
  private By howMuchDoesItCost = By.id("accordion__heading-0");
- private By howMuchDoesItCostAnswer = By.xpath("//div[@id='accordion__heading-0']/../../div[2]/p");
+ private By howMuchDoesItCostAnswer = By.id("accordion__panel-0");
  //Хочу сразу несколько самокатов! Так можно?
  private By wantSeveralScootersAtOnce = By.id("accordion__heading-1");
- private By wantSeveralScootersAtOnceAnswer = By.xpath("//div[@id='accordion__heading-1']/../../div[2]/p");
+ private By wantSeveralScootersAtOnceAnswer = By.id("accordion__panel-1");
  //Как рассчитывается время аренды?
  private By howRentalTimeCalculated = By.id("accordion__heading-2");
- private By howRentalTimeCalculatedAnswer = By.xpath("//div[@id='accordion__heading-2']/../../div[2]/p");
+ private By howRentalTimeCalculatedAnswer = By.id("accordion__panel-2");
  //Можно ли заказать самокат прямо на сегодня?
  private By possibleToOrderScooterToday = By.id("accordion__heading-3");
- private By possibleToOrderScooterTodayAnswer = By.xpath("//div[@id='accordion__heading-3']/../../div[2]/p");
+ private By possibleToOrderScooterTodayAnswer = By.id("accordion__panel-3");
  //Можно ли продлить заказ или вернуть самокат раньше?
  private By possibleToExtendOrderOrReturnEarlier = By.id("accordion__heading-4");
- private By possibleToExtendOrderOrReturnEarlierAnswer = By.xpath("//div[@id='accordion__heading-4']/../../div[2]/p");
+ private By possibleToExtendOrderOrReturnEarlierAnswer = By.id("accordion__panel-4");
  //Вы привозите зарядку вместе с самокатом?
  private By chargingAlongWithScooter = By.id("accordion__heading-5");
- private By chargingAlongWithScooterAnswer = By.xpath("//div[@id='accordion__heading-5']/../../div[2]/p");
+ private By chargingAlongWithScooterAnswer = By.id("accordion__panel-5");
  //Можно ли отменить заказ?
  private By possibleToCancelOrder = By.id("accordion__heading-6");
- private By possibleToCancelOrderAnswer = By.xpath("//div[@id='accordion__heading-6']/../../div[2]/p");
+ private By possibleToCancelOrderAnswer = By.id("accordion__panel-6");
  //Я живу за МКАДом, привезёте?
  private By bringScooterBeyondMKAD = By.id("accordion__heading-7");
- private By bringScooterBeyondMKADAnswer = By.xpath("//div[@id='accordion__heading-7']/../../div[2]/p");
+ private By bringScooterBeyondMKADAnswer = By.id("accordion__panel-7");
 
  //Конструкторы
-
  public SectionQuestions(WebDriver driver) {
   this.driver = driver;
  }
+ public void Scrollig_to_Qiestion () {
+  WebElement element = driver.findElement(howMuchDoesItCost);
+  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+  new WebDriverWait(driver, 3)
+          .until(ExpectedConditions.elementToBeClickable(element));
+ }
+
  // открыть страницу приложения
  public void Open() {
   driver.get(URL);

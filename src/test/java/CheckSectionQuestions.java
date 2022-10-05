@@ -25,18 +25,14 @@ public class CheckSectionQuestions {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
-        WebElement element = driver.findElement(By.id("accordion__heading-0"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.elementToBeClickable(element));
-        // перенесла в бефор первые шаги, так как у меня выходила ошибка и не удавалось внести все это по тестам
-        // плюс, как оказалось если проскролить до 1 вопроса, дальше поиск идет спокойно.
+      // перенесла скроллинг в тесты
     }
 
     @Test
     public void expectedFirstImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getHowMuchDoesItCostAnswer();
         String expected = questions.FIRST_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
@@ -47,6 +43,7 @@ public class CheckSectionQuestions {
     public void expectedSecondImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getWantSeveralScootersAtOnceAnswer();
         String expected = questions.SECOND_EXPECTATION;
         Assert.assertEquals("Text is not equal.",expected,actual);
@@ -57,6 +54,7 @@ public class CheckSectionQuestions {
     public void expectedThirdImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getHowRentalTimeCalculatedAnswer();
         String expected = questions.THIRD_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
@@ -67,6 +65,7 @@ public class CheckSectionQuestions {
     public void expectedFourthImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getPossibleToOrderScooterToday();
         String expected = questions.FOURTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
@@ -77,6 +76,7 @@ public class CheckSectionQuestions {
     public void expectedFifthImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getPossibleToExtendOrderOrReturnEarlier();
         String expected = questions.FIFTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
@@ -86,6 +86,7 @@ public class CheckSectionQuestions {
     public void expectedSixthImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getChargingAlongWithScooter();
         String expected = questions.SIXTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
@@ -95,6 +96,7 @@ public class CheckSectionQuestions {
     public void expectedSeventhImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getPossibleToCancelOrder();
         String expected =questions.SEVENTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);
@@ -104,6 +106,7 @@ public class CheckSectionQuestions {
     public void expectedEightImportantQuestion(){
         SectionQuestions sectionQuestions = new SectionQuestions(driver);
         Questions questions = new Questions(driver);
+        sectionQuestions.Scrollig_to_Qiestion();
         String actual = sectionQuestions.getBringScooterBeyondMKAD();
         String expected = questions.EIGHTH_EXPECTATION;
         Assert.assertEquals("Text is not equal.", expected,actual);

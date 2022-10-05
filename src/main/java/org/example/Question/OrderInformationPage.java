@@ -6,34 +6,37 @@ import org.openqa.selenium.WebDriver;
 
 public class OrderInformationPage {
     private WebDriver driver;
+
+    // заменила xpath на поиск по классам или если класс не уникальны то по CssSelector
     //Имя
-    private By firstNameField = By.xpath("//input[@placeholder='* Имя']");
+    private By firstNameField = By.cssSelector("div.Order_Form__17u6u > div:nth-child(1) > input");
     //Фамилия
-    private By secondNameField = By.xpath("//input[@placeholder='* Фамилия']");
+    private By secondNameField = By.cssSelector("div.Order_Form__17u6u > div:nth-child(2) > input");
     //Адрес
-    private By addressField = By.xpath("//input[@placeholder='* Адрес: куда привезти заказ']");
+    private By addressField = By.cssSelector("div.Order_Form__17u6u > div:nth-child(3) > input");
     //Станция метро
-    private By metroStationField = By.xpath("//input[@placeholder='* Станция метро']");
+    private By metroStationField = By.className("select-search__input");
     //Телефон
-    private By phoneNumberField = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private By phoneNumberField = By.cssSelector("div.Order_Form__17u6u > div:nth-child(5) > input");
     //Кнопка "Далее"
-    private By nextButton = By.xpath("//button[text()='Далее']");
+    private By nextButton = By.cssSelector("div.Order_NextButton__1_rCA > button");
     //Когда привезти самокат
-    private By dateDeliveryField = By.xpath("//input[@placeholder='* Когда привезти самокат']");
+    private By dateDeliveryField = By.cssSelector("div.Order_MixedDatePicker__3qiay > div > div > input");
     //Срок аренды
-    private By rentalPeriodField = By.xpath("//div[text()='* Срок аренды']");
-    //Выбор срока аренды из выпадайки
-    private String xpathRentalPeriodDropDown = "//div[@class ='Dropdown-option' and text()='%s']";
+    private By rentalPeriodField = By.className("Dropdown-control");
+    //Выбор срока аренды из выпадающего списка
+    private String classRentalPeriodDropDown = "Dropdown-option";
     //Выбор цвета самоката
-    private String xpathScooterColorCheckBox = "//label[text()='%s']/input";
+    private String classScooterColorCheckBox = "Order_Checkboxes__3lWSI";
     //Комментарий для курьера
-    private By commentForDeliverymanField = By.xpath("//input[@placeholder='Комментарий для курьера']");
+    private By commentForDeliverymanField = By.cssSelector("div.Order_Form__17u6u > div.Input_InputContainer__3NykH > input");
     //Кнопка "Заказать"
-    private By orderButton = By.xpath("(//button[text()='Заказать'])[2]");
+    private By orderButton = By.cssSelector("div.Order_Buttons__1xGrp > button:nth-child(2)");
     //Кнопка "Да" в окне подтверждения заказа
-    private  By yesButton = By.xpath("//button[text()='Да']");
+    private  By yesButton = By.cssSelector("div.Order_Modal__YZ-d3 > div.Order_Buttons__1xGrp > button:nth-child(2)");
     //Сообщение об успешном создании заказа
-    public By notificationOfOrderCreation = By.xpath("//div[text()='Заказ оформлен']");
+
+    public By notificationOfOrderCreation = By.className("Order_ModalHeader__3FDaJ");
     public OrderInformationPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -60,16 +63,16 @@ public class OrderInformationPage {
     }
     public void setRentalPeriod(String rentalPeriod) {
         driver.findElement(rentalPeriodField).click();
-        driver.findElement(By.xpath(String.format(xpathRentalPeriodDropDown, rentalPeriod))).click();
+        driver.findElement(By.xpath(String.format(classRentalPeriodDropDown, rentalPeriod))).click();
     }
     public void setScooterColor(String scooterColor) {
-        driver.findElement(By.xpath(String.format(xpathScooterColorCheckBox, scooterColor))).click();
+        driver.findElement(By.xpath(String.format(classScooterColorCheckBox, scooterColor))).click();
     }
     public void setCommentForDeliveryman(String commentForDeliveryman){
         driver.findElement(commentForDeliverymanField).sendKeys(commentForDeliveryman);
     }
     public void clickOrderButton() {
-        driver.findElement(orderButton).click();
+         driver.findElement(orderButton).click();
     }
     public void clickYesButton() {
         driver.findElement(yesButton).click();
